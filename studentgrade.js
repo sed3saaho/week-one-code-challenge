@@ -1,37 +1,41 @@
-const minNum = 0;
-const maxNum = 100;
+// Importing the prompt-sync module for synchronous input
+const prompt = require("prompt-sync")({ sigint: true });
 
+// Prompting the user to enter their marks
+const mark = prompt("Please enter your marks:");
 
-function gradeForMarks(marks) {
-    if (marks >79) {
-        return "A";
-    } else if (marks >= 60 && marks <= 79) {
-        return "B";
-    } else if (marks >= 50 && marks <= 59) {
-        return "C";
-    } else if (marks >= 40 && marks <= 49) {
-        return "D";
-    } else if (marks <marks >=0 && marks <= 39) {
-        return "E";
-    }
-    else if (marks = "") {
-        return "enter a valid number";
-    }
-    else {
-        return "invalid input: marks must be between 0 and 100";
-    }
-     else if(studentmarks < minNum || studentmarks > maxNum){
-        window.alert("please enter a valid number");
-    }
-    
+// Function to validate and parse user marks
+function getUserMarks(mark) {
+    mark = parseInt(mark); // Converting the input to a number
 
-
+    // Check if the input is not a number or falls outside the range of 0 to 100
+    if (isNaN(mark) || mark < 0 || mark > 100) {
+        console.log("Invalid input. Please enter a number between 0 and 100.");
+        return null; 
+    }
+    return mark; 
 }
 
-const inputmarks =window.prompt("please input students marks etween 0 and 100");
+// Validate and parse the user input marks
+const validMark = getUserMarks(mark);
 
-const marks = parseint(inputmarks);
+// If the input marks are valid, calculate and display the grade
+if (validMark !== null) {
+    const grade = getGrade(validMark); 
+    console.log(`Grade: ${grade}.`); 
+}
 
-const grade = gradeForMarks(marks);
-
-console.log("gradeForMarks: ", grade)
+// Function to calculate the grade based on marks
+function getGrade(mark) {
+    if (mark > 79) {
+        return 'A';
+    } else if (mark >= 60) {
+        return 'B';
+    } else if (mark >= 50) {
+        return 'C';
+    } else if (mark >= 40) {
+        return 'D';
+    } else {
+        return 'E';
+    }
+}

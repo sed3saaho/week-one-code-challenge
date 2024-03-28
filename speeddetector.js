@@ -1,21 +1,24 @@
-const inputspeed =window.prompt("please input the speed of your vehicle");
-const speed =parseInt(inputspeed);
-const speedlimit = 70;
-const Demeritpointsperkm = 5;
+// Importing the prompt-sync module for synchronous input
+const prompt = require("prompt-sync")({ sigint: true });
 
-function speeddetector(speed){
-    
-if(speed < speedlimit){
-    window.alert("ok");
-}
-else{
-    const demeritpoints = Math.floor((speed - speedlimit)/Demeritpointsperkm);}
-    if(demeritpoints > 12){
-        window.alert("licence suspended");}
-        else{
-            window.alert("points:" + demeritpoints);
-        
-        }
+// Prompting the user to enter the car speed
+const speed = prompt("Please enter car speed:");
+
+//Function to calculate demerit points and suspension of license.
+function demeritPoints(speed){
+    let demeritPoints;
+    speed = parseInt(speed,10);
+    if (speed < 70){
+        console.log("Ok")
+    } else {
+        demeritPoints = Math.ceil((speed-70)/5);
     }
-
-    
+    if (demeritPoints < 12){
+       console.log(`Demerit points: ${demeritPoints}`)
+    } else{
+        console.log(`License suspended`);
+    }
+}
+  
+//calling the function 
+demeritPoints(speed);

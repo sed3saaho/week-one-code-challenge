@@ -1,61 +1,100 @@
-function calculateNetSalary(basicsalary,benefits){
-const NHIF_PERCENTAGE = 0.017;
-const NSSF_PERCENTAGE = 0.06;
+// Importing the prompt-sync module for synchronous input
+const prompt = require("prompt-sync")({ sigint: true });
 
-const grossSalary = basicsalary + benefits;
+// Prompting the user to enter their salary and benefits
+const basicSalaryStr = prompt("Please enter your basic salary:");
+const benefitsStr = prompt("Please enter your benefits:");
 
-const nhifDedutions = grossSalary * NHIF_PERCENTAGE;
-
-const nssfDeductions = basicsalary * NSSF_PERCENTAGE;
-
-const totalDeductions = nhifDedutions + nssfDeductions;
-
-let payee;
-let running = true;
-
-if (basicsalary <= 12298){
-    payee = 0;
-}
-else if (basicsalary >= 12299 && basicsalary <= 23885){
-    payee = 0.1 * (basicsalary - 12298);
-}
-else if (basicsalary >= 23885) {
-    payee = (basicsalary - 12298) * 0.1;
-}
-else if (basicsalary <=35472) {
-    payee = 1158.7 + (basicsalary - 23885) * 0.15;
-}
-else if (basicsalary <= 47059) {
-    payee = 2713.1 + (basicsalary - 35472) * 0.2;
-}
-else if (basicsalary <= 70913) {
-    payee = 4783.6 + (basicsalary - 47059) * 0.25;
-}
-else {
-    payee = 10968.6 + (basicsalary - 70913) * 0.3;
+//Calculating the Gross Salary
+function calculateGrossSalary(){
+    const basicSalary = parseFloat(basicSalaryStr);
+    const benefits =parseFloat(benefitsStr);
+    const grossSalary = basicSalary - benefits;
+    console.log(`Gross Salary: ${grossSalary}`)
+    return grossSalary;
 }
 
-const netsalary = grossSalary - totalDeductions - payee;
+const grossSalary = calculateGrossSalary();
+ 
+//calculating the PAYE based on th gloss salary
+function getPAYE(grossSalary){
+    let PAYE;
+    if (grossSalary <= 24000){
+        PAYE = 0.1 * grossSalary;
+    } else if (grossSalary <= 32333){
+        PAYE = 0.25 * grossSalary;
+    } else if (grossSalary <= 500000){
+        PAYE = 0.3 * grossSalary;
+    }else if (grossSalary <= 800000){
+        PAYE = 0.325 * grossSalary;
+    }else if (grossSalary > 800000){
+        PAYE = 0.35 * grossSalary;
+    }
+    return PAYE;
+}
+const PAYE = getPAYE(grossSalary);
 
-return {
-    grossSalary: grossSalary,
-    NHIFDeductions: nhifDedutions,
-    NSSFDeductions: nssfDeductions,
-    payee: payee,
-    netSalary: netsalary
-};
+//Calculating NHIF deductions based on the gloss salary
+function getNHIFDeductions(grossSalary){
+    let NHIFdeduction;
+    if (grossSalary <= 5999){
+        NHIFdeduction = 150;
+    }else if(grossSalary <= 7999){
+        NHIFdeduction = 300;
+    }else if(grossSalary <= 11999){
+        NHIFdeduction = 400;
+    }else if(grossSalary <= 14999){
+        NHIFdeduction = 500;
+    }else if(grossSalary <= 19999){
+        NHIFdeduction = 600;
+    }else if(grossSalary <= 24999){
+        NHIFdeduction = 750;
+    }else if(grossSalary <= 29999){
+        NHIFdeduction = 850;
+    }else if(grossSalary <= 34999){
+        NHIFdeduction = 900;
+    }else if(grossSalary <= 39999){
+        NHIFdeduction = 950;
+    }else if(grossSalary <= 44999){
+        NHIFdeduction = 1000;
+    }else if(grossSalary <= 49999){
+        NHIFdeduction = 1100;
+    }else if(grossSalary <= 59999){
+        NHIFdeduction = 1200;
+    }else if(grossSalary <= 69999){
+        NHIFdeduction = 1300;
+    }else if(grossSalary <= 79999){
+        NHIFdeduction = 1400;
+    }else if(grossSalary <= 89999){
+        NHIFdeduction = 1500;
+    }else if(grossSalary <= 99999){
+        NHIFdeduction = 1600;
+    }else {
+        NHIFdeduction = 1700;
+    }
+    console.log(`NHIFDeduction: ${NHIFdeduction}`)
+    return NHIFdeduction;
 }
 
-const inputbasicsalary =window.prompt("please input your basicsalary");
-const inputbenefits = window.prompt("please input your benefits");
+const NHIFdeduction = getNHIFDeductions(grossSalary);
 
+//Calculating the NSSF deductions
+function getNSSFDeductions (){
+    let NSSFDeductions;
+    if (grossSalary <= 18000){
+        NSSFDeductions = 420;
+    }else {
+        NSSFDeductions = 1740;
+    }
+    console.log(`NSSFDeductions: ${NSSFDeductions}`)
+    return NSSFDeductions;
+}
+const NSSFDeductions = getNSSFDeductions (grossSalary);
 
-
-const basicsalary = 50000;
-const benefits = 10000;
-const salarydetails = calculateNetSalary(basicsalary, benefits);
-console.log("Gross Salary: ", salarydetails.grossSalary);
-console.log("NHIF Deductions: ", salarydetails.NHIFDeductions);
-console.log("NSSF Deductions: ", salarydetails.NSSFDeductions);
-console.log("PAYEE(Tax): ", salarydetails.payee);
-console.log("Net Salary: ", salarydetails.netSalary);
+//Calculating the net salary
+function calculateNetSalary(PAYE,NHIFDeduction,NSSFDeductions){
+    const netSalary = grossSalary - PAYE - NHIFDeduction - NSSFDeductions;
+    console.log(`Net Salary: ${netSalary}`);
+    return netSalary;
+}
+calculateNetSalary(PAYE, NHIFdeduction,NSSFDeductions);
