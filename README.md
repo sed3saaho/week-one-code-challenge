@@ -1,86 +1,60 @@
-## Code Challenge
+## Grade Calculator
 
-# Student grade generator
-(function gradeForMarks(marks) { }) here am creating a function that will help us generate the student's grades
-then within the function i wil us the "if" and the "else if" statements to declare what our function needs to 
-like as for example in the "if" statement we have declared our function to grade all marks above 79 as A.
-const inputmarks =window.prompt("please input students marks etween 0 and 100"); > here we are prompting the user by giving him or her specific instructions on what to do , as for our case the user has to input the students marks which should range between 0 to 100
-then we use the parceint function to ensure that it parses whatever string that our user will input nad convert it into 
-an integer based on the contents within a string
- We also have to restrict the user to meet the conditions of our programm which is to ensure that the marks which the the user has inputed ranges between 0 to 100 which will be made possible by usng the const variable. As in our case we have "const minNum = 0;
-       const maxNum = 100;"
-    And we have to declare our function to alert the user whenever he or she has failed to meet the conditions of our programm , as for our case we used " else if(studentmarks < minNum || studentmarks > maxNum){
-        window.alert("please enter a valid number");
-    }"
-    
-## Speed Detector  
-We first start by prompting the user to input the vehicle's speed like as for our case we have "const inputspeed =window.prompt("please input the speed of your vehicle");"
-we then use the parceint function to ensure that it parse the input for speed so that if it is a string it converts it into an integer
-We have to set a constant of our speed limit , we wil do this using the const variable eg "const speedlimit = 70;"
-We also have to set constant of our demerit points per kilometer eg "const Demeritpointsperkm = 5;"
-After which we will have to declare a function that will enable us calculate the demerit points as per the vehicles speed
-        "const demeritpoints = Math.floor((speed - speedlimit)/Demeritpointsperkm);}" < Here we are tring to tell our function that for every 5km/s above our speed limit , it should give the driver one demerit point .
+This simple JavaScript program allows users to input their marks and calculates their corresponding grades based on the input.
 
-      "if(demeritpoints > 12){
-        window.alert("licence suspended");}" < here we are telling our function to that when the demerit points of a driver exceed 12 then it should send an alert to the driver that his license is suspended
-"lse{
-            window.alert("points:" + demeritpoints);" < Here we are telling our function to alert the driver on his total demerit points. And this applies to those whose demerit points are below 12
-            
-## Net Salary Calculator
-WE start by declairing a function that will help us calculate the users net Salary base on the inputs which we will ask the use to input which are : His Basic Salary and His Benefits
+# How to Use
+Run the program in a Node.js environment.
+Enter your marks when prompted.
+The program will validate the input and calculate your grade.
+The calculated grade will be displayed on the console.
+Features
+Validates user input to ensure it is a number between 0 and 100.
+Calculates the grade based on the input marks according to the following scale:
+A: 80-100
+B: 60-79
+C: 50-59
+D: 40-49
+E: 0-39
+# Functions
+getUserMarks(mark): Validates and parses the user input marks.
+getGrade(mark): Calculates the grade based on the input marks.
 
-      "const NHIF_PERCENTAGE = 0.017;
-     const NSSF_PERCENTAGE = 0.06;
+## Demerit Points Calculator
+This JavaScript program calculates demerit points for a car's speed input by the user and determines whether the license should be suspended based on the demerit points.
 
-       const grossSalary = basicsalary + benefits;
+# How to Use
+Run the program in a Node.js environment.
+Enter the car speed when prompted.
+The program will calculate the demerit points based on the input speed.
+If the demerit points exceed 12, the program will display "License suspended"; otherwise, it will show the calculated demerit points.
 
-      const nhifDedutions = grossSalary * NHIF_PERCENTAGE;
+# Features
+Calculates demerit points for car speed exceeding the limit of 70.
+Determines whether the license should be suspended based on the demerit points.
+Provides feedback to the user regarding the demerit points or license suspension.
 
-      const nssfDeductions = basicsalary * NSSF_PERCENTAGE;
+# Functions
+demeritPoints(speed): Calculates demerit points and checks if the license should be suspended based on the input speed.
 
-      const totalDeductions = nhifDedutions + nssfDeductions;"
-What we are trying to do, is to declare some constants within the function which will help us with the calculations of
-the user's net salary and as you can see there are some arithmetic operators involved in them.
+## Salary Calculator
+This JavaScript program calculates various components of an employee's salary, including gross salary, PAYE (Pay As You Earn) tax, NHIF (National Hospital Insurance Fund) deductions, NSSF (National Social Security Fund) deductions, and net salary based on the user's input for basic salary and benefits.
 
-     "if (basicsalary <= 12298){
-    payee = 0;
-    }
-    else if (basicsalary >= 12299 && basicsalary <= 23885){
-    payee = 0.1 * (basicsalary - 12298);
-   }
-      else if (basicsalary >= 23885) 
-     payee = (basicsalary - 12298) * 0.1;
-   }
-   else if (basicsalary <=35472) {
-    payee = 1158.7 + (basicsalary - 23885) * 0.15;
-    }
-    else if (basicsalary <= 47059) {
-      payee = 2713.1 + (basicsalary - 35472) * 0.2;
-   }
-    else if (basicsalary <= 70913) {
-    payee = 4783.6 + (basicsalary - 47059) * 0.25;
-   }
-   else {
-   payee = 10968.6 + (basicsalary - 70913) * 0.3;
-   }"
-   
-Now as you can see, above you there are some code there, what we are trying to do is to create the table used for calculating tax in a way javascript will be able to understand and interpret  according to how we want it to do,
-and for your information at the end you will see that we are getting the accurate figures after javascript has done us the mathematics
-   "const netsalary = grossSalary - totalDeductions - payee;" < here we are just trying to calculate our net salary using values from the grossSalary , totalDeductions and payee
-   
-        "return {
-        grossSalary: grossSalary,           >here we are just telling our function what to return after 
-         NHIFDeductions: nhifDedutions,       the calculations
-        NSSFDeductions: nssfDeductions,
-        payee: payee,
-        netSalary: netsalary
-        };"
+# How to Use
+Run the program in a Node.js environment.
+Enter the basic salary and benefits when prompted.
+The program will calculate the gross salary, PAYE, NHIF deductions, NSSF deductions, and net salary based on the input values.
+The calculated values will be displayed on the console.
 
-As you can remember in the begining we said that we have to prompt our user to input the basic salary and the benefits
-and that is actually what we are trying to do here > "
-       const inputbasicsalary =window.prompt("please input your basicsalary");
-      const inputbenefits = window.prompt("please input your benefits");"
-
-
-
+# Features
+Calculates gross salary by subtracting benefits from the basic salary.
+Determines PAYE tax based on the gross salary using progressive tax rates.
+Calculates NHIF deductions based on the gross salary using a predefined scale.
+Calculates NSSF deductions based on the gross salary using predefined thresholds.
+Calculates the net salary by subtracting PAYE, NHIF deductions, and NSSF deductions from the gross salary.
+# Functions
+calculateGrossSalary(): Calculates the gross salary based on the input of basic salary and benefits.
+getPAYE(grossSalary): Calculates the PAYE tax based on the gross salary using progressive tax rates.
+getNHIFDeductions(grossSalary): Calculates NHIF deductions based on the gross salary using a predefined scale.
+getNSSFDeductions(): Calculates NSSF deductions based on the gross salary using predefined thresholds.
+calculateNetSalary(PAYE, NHIFDeduction, NSSFDeductions): Calculates the net salary based on the gross salary, PAYE, NHIF deductions, and NSSF deductions
 
