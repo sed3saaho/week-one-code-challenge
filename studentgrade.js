@@ -4,7 +4,7 @@ const prompt = require("prompt-sync")({ sigint: true });
 // Prompting the user to enter their marks
 const mark = prompt("Please enter your marks:");
 
-// Function to validate and parse user marks
+// Function to validate and parse user mark
 function getUserMarks(mark) {
     mark = parseInt(mark); // Converting the input to a number
 
